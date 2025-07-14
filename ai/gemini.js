@@ -1,11 +1,14 @@
-import { GoogleGenAI } from "@google/genai";
-import dotenv from 'dotenv';
+const { GoogleGenAI } = require("@google/genai");
+const dotenv = require("dotenv");
+
 dotenv.config();
+
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-export async function geminiQuery(text) {
- const response = await ai.models.generateContent({
-  model: "gemini-2.0-flash",
-  contents: `You are an expert in summarizing and formatting educational notes.
+
+async function geminiQuery(text) {
+  const response = await ai.models.generateContent({
+    model: "gemini-2.0-flash",
+    contents: `You are an expert in summarizing and formatting educational notes.
 
 Summarize the following content clearly and concisely:
 - Use section headings with <h3> or <strong>
@@ -16,12 +19,8 @@ Summarize the following content clearly and concisely:
 
 Here is the content:
 ${text}
-
-
 `,
-});
-
-
+  });
 
   return response.text
     .replace(/^```html\s*/i, '')
@@ -33,4 +32,4 @@ ${text}
     .trim();
 }
 
-geminiQuery;
+module.exports = { geminiQuery };

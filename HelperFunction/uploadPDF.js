@@ -1,6 +1,5 @@
-// utils/cloudinary.js
-import { v2 as cloudinary } from 'cloudinary';
-import dotenv from 'dotenv';
+const cloudinary = require('cloudinary').v2;
+const dotenv = require('dotenv');
 
 dotenv.config();
 
@@ -21,12 +20,11 @@ const uploadOnCloudinary = async (fileDataUri, publicId) => {
   try {
     if (!fileDataUri) throw new Error("File Data URI is missing");
 
-    // Ensure .pdf extension is present
     const fixedPublicId = publicId.endsWith('.pdf') ? publicId : `${publicId}.pdf`;
 
     const response = await cloudinary.uploader.upload(fileDataUri, {
       public_id: fixedPublicId,
-      resource_type: "raw", // Required for non-images like PDF, DOC, ZIP, etc.
+      resource_type: "raw", // For non-image files
     });
 
     console.log("✅ Uploaded to Cloudinary:", response.secure_url);
@@ -38,4 +36,4 @@ const uploadOnCloudinary = async (fileDataUri, publicId) => {
   }
 };
 
-export { uploadOnCloudinary };
+module.exports = { uploadOnCloudinary };

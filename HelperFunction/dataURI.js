@@ -1,5 +1,5 @@
-import DataUriParser from 'datauri/parser.js';
-import path from 'path';
+const DataUriParser = require('datauri/parser');
+const path = require('path');
 
 const getDataUri = (file) => {
   const parser = new DataUriParser();
@@ -10,8 +10,8 @@ const getDataUri = (file) => {
   // Format the file into a Data URI with correct MIME type
   const dataUri = parser.format(extName, file.buffer);
 
-  // Return the actual Data URI string (data:application/pdf;base64,...)
+  // Return the actual Data URI string
   return dataUri.content;
 };
 
-export default getDataUri;
+module.exports = getDataUri;

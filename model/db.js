@@ -1,11 +1,11 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
 dotenv.config();
 
 let isConnected = false;
 
-export const connectDB = async () => {
+const connectDB = async () => {
   if (isConnected) return;
   try {
     await mongoose.connect(process.env.DB, {
@@ -27,4 +27,6 @@ const resourceSchema = new mongoose.Schema({
   },
 });
 
-export const Resource = mongoose.models.knowledgetree || mongoose.model("knowledgetree", resourceSchema);
+const Resource = mongoose.models.knowledgetree || mongoose.model("knowledgetree", resourceSchema);
+
+module.exports = { connectDB, Resource };

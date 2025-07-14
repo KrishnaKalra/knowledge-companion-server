@@ -1,11 +1,12 @@
-import { geminiQuery } from "../ai/gemini.js";
+const { geminiQuery } = require("../ai/gemini");
 
-export async function summariseChunkFunction(textChunk){
-    var ans="";
-    for(var i=0;i<textChunk.length;i++){
-        const geminiResult=await geminiQuery(textChunk[i]);
-        ans=ans+" "+geminiResult;
-    }
-    //console.log(ans);
-    return ans;
+async function summariseChunkFunction(textChunk) {
+  let ans = "";
+  for (let i = 0; i < textChunk.length; i++) {
+    const geminiResult = await geminiQuery(textChunk[i]);
+    ans += " " + geminiResult;
+  }
+  return ans;
 }
+
+module.exports = { summariseChunkFunction };
