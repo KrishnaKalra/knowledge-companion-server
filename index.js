@@ -101,7 +101,7 @@ app.post("/update", upload.single("file"), async (req, res) => {
 
       currentObject.pdf.push({
         name: req.file.originalname,
-        link: result.result.secure_url,
+        link: result.secure_url,
         fileType: fileType
       });
 
